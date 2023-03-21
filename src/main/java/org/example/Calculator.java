@@ -1,105 +1,120 @@
 package org.example;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 public class Calculator {
     private static final Logger logger = LogManager.getLogger(Calculator.class);
-
-    //my factorial function
-    static long factorial(int n){
-        logger.info("[FACTORIAL] - " + n);
-        if (n == 0)
-            return 1;
-        else
-            return(n * factorial(n-1));
+    public Calculator() {
     }
 
-    static double square_root(int n){
-        double result;
-        logger.info("[SQ ROOT] - " + n);
+    public static void main(String[] args) {
 
-        result = Math.sqrt(n);
+        Calculator calculator = new Calculator();
+        Scanner scanner = new Scanner(System.in);
+        double number1, number2;
+        do {
+            System.out.println("Scientific Calculator using DevOps. \n Choose operation:");
+            System.out.print("1. Factorial\n2. Square root\n3. Power\n4. Natural Logarithm\n" +
+                    "5. Exit\nEnter your choice: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+            } catch (InputMismatchException error) {
+                return;
+            }
+
+            switch (choice) {
+                case 1:
+                    // Factorial
+                    System.out.print("Enter a number : ");
+                    number1 = scanner.nextDouble();
+                    System.out.println("Factorial of "+number1+" is : " + calculator.factorial(number1));
+                    System.out.println("\n");
+
+                    break;
+                case 2:
+                    // Square root
+                    System.out.print("Enter a number : ");
+                    number1 = scanner.nextDouble();
+                    System.out.println("Square root of "+number1+" is : " + calculator.squareRoot(number1));
+                    System.out.println("\n");
+
+
+                    break;
+                case 3:
+                    // Power
+                    System.out.print("Enter the first number : ");
+                    number1 = scanner.nextDouble();
+                    System.out.print("Enter the second number : ");
+                    number2 = scanner.nextDouble();
+                    System.out.println(number1+ " raised to power "+number2+" is : " + calculator.power(number1, number2));
+                    System.out.println("\n");
+                    break;
+                case 4:
+                    // Natural log
+                    System.out.print("Enter a number : ");
+                    number1 = scanner.nextDouble();
+                    System.out.println("Natural log of "+number1+" is : " + calculator.naturalLog(number1));
+                    System.out.println("\n");
+
+                    break;
+                default:
+                    System.out.println("Exiting....");
+                    return;
+            }
+        } while (true);
+    }
+
+
+    public double factorial(double number1) {
+        logger.info("[FACTORIAL] - " + number1);
+        double result = fact(number1);
+        logger.info("[RESULT - FACTORIAL] - " + result);
+        return result;
+    }
+
+
+
+    public double squareRoot(double number1) {
+        logger.info("[SQ ROOT] - " + number1);
+        double result = Math.sqrt(number1);
         logger.info("[RESULT - SQ ROOT] - " + result);
         return result;
     }
 
-    static double natural_log(int n){
-        logger.info("[NATURAL LOG] - " + n);
-        double result=0;
+
+    public double power(double number1, double number2) {
+        logger.info("[POWER - " + number1 + " RAISED TO] " + number2);
+        double result = Math.pow(number1,number2);
+        logger.info("[RESULT - POWER] - " + result);
+        return result;
+    }
+
+    public double naturalLog(double number1) {
+        logger.info("[NATURAL LOG] - " + number1);
+        double result = 0;
         try {
-            if (n < 0 ) {
+
+            if (number1 <0 ) {
                 result = Double.NaN;
                 throw new ArithmeticException("Case of NaN 0.0/0.0");
             }
-            if (n == 0){
-                result = Double.NEGATIVE_INFINITY;
-            }
             else {
-                result = Math.log(n);
+                result = Math.log(number1);
             }
         } catch (ArithmeticException error) {
-            logger.error("[EXCEPTION - LOG] - Cannot find log of negative numbers");
             System.out.println("[EXCEPTION - LOG] - Cannot find log of negative numbers " + error.getLocalizedMessage());
         }
         logger.info("[RESULT - NATURAL LOG] - " + result);
         return result;
     }
-
-    static double x_power_b(int x, int b){
-        logger.info("[POWER of" + x + "RAISED TO]" + b);
-        double res=0;
-        res = Math.pow(x, b);
-        logger.info("[RESULT - POWER] - " + res);
-        return res;
-    }
-    public static void main(String a[])
-    {
-        int num1=0,num2=0,option,ex;
-        double res=0;
-        long ress=0;
-        do
-        {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter your choice from the following menu:");
-            System.out.println("1.Square root \n2.Factorial \n3.Natural log \n4.power x^b \n5.Exit");
-            System.out.println("Enter your choice : ");
-            option = sc.nextInt();
-            if(option==4){
-                System.out.println("Enter the first number->x");
-                num1=sc.nextInt();
-                System.out.println("Enter the second number->b");
-                num2=sc.nextInt();
-            }
-            else if(option!=5){
-                System.out.println("Enter the number");
-                num1=sc.nextInt();
-            }
-            else
-                break;
-            switch(option)
-            {
-                case 1:
-                    res = square_root(num1);
-                    System.out.println("Square root of "+num1+" is "+res);
-                    break;
-                case 2:
-                    ress = factorial(num1);
-                    System.out.println("Factorial of "+num1+" is "+ress);
-                    break;
-                case 3:
-                    res = natural_log(num1);
-                    System.out.println("Natural log (ln) of "+num1+" is "+res);
-                    break;
-                case 4:
-                    res = x_power_b(num1, num2);
-                    System.out.println(num1+" to the power "+num2+" is "+res);
-                    break;
-                case 5: break;
-                default: System.out.println("Invalid choice");
-            }
-            System.out.println("Do you want to continue? \n 1.Yes 2.No");
-            ex=sc.nextInt();
-        }while(ex==1);
+    public double fact(double num) {
+        double facto = 1;
+        for(int i = 1; i <= num; ++i)
+        { facto *= i;   }
+        return  facto;
     }
 }
