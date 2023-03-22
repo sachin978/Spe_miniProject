@@ -44,7 +44,6 @@ public class Calculator {
 //
 //
 //                    break;
-
                 case 3:
                     // Power
                     System.out.print("Enter the first number : ");
