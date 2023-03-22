@@ -35,15 +35,15 @@ public class Calculator {
                     System.out.println("\n");
 
                     break;
-//                case 2:
-//                    // Square root
-//                    System.out.print("Enter a number : ");
-//                    number1 = scanner.nextDouble();
-//                    System.out.println("Square root of "+number1+" is : " + calculator.squareRoot(number1));
-//                    System.out.println("\n");
-//
-//
-//                    break;
+                case 2:
+                    // Square root
+                    System.out.print("Enter a number : ");
+                    number1 = scanner.nextDouble();
+                    System.out.println("Square root of "+number1+" is : " + calculator.squareRoot(number1));
+                    System.out.println("\n");
+
+
+                    break;
                 case 3:
                     // Power
                     System.out.print("Enter the first number : ");
